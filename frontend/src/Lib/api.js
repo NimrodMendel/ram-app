@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const charactersURL = "https://rickandmortyapi.com/api/character/";
+const URL = "http://localhost:8000/api";
 
 export const getAllCharacters = async (formData) => {
   let i = 1;
