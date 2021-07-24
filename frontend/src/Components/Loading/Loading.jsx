@@ -6,7 +6,7 @@ export const Loading = () => {
   return (
     <>
       <Container>
-        <Spinner animation="grow" variant="primary" />
+        <Spinner animation="grow" variant="primary" className="mt-5" />
       </Container>
     </>
   );

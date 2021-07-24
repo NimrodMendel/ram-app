@@ -3,14 +3,20 @@ import { IoLocationSharp } from "react-icons/io5";
 import { SiPostwoman } from "react-icons/si";
 import { GiLifeBar } from "react-icons/gi";
 import { ImManWoman } from "react-icons/im";
+import { likeCharacter } from "../../Lib/api";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 
 export const CharacterCard = ({ character }) => {
   const { name, gender, species, location, status, image } = character;
+
+  const like = async () => {
+    const res = await likeCharacter(character);
+  };
 
   return (
     <>
@@ -64,7 +70,8 @@ export const CharacterCard = ({ character }) => {
           </ListGroupItem>
         </ListGroup>
         <Card.Body>
-          <Card.Link href="#">Add to favorites</Card.Link>
+          {/* <Card.Link href="#">Add to favorites</Card.Link> */}
+          <Button onClick={like}>Like</Button>
           <Card.Link href="#">More info</Card.Link>
         </Card.Body>
       </Card>

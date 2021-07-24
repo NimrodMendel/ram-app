@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAllCharacters } from "../../Lib/api";
+import { getAll } from "../../Lib/api";
 import { CharacterCard } from "../../Components/CharacterCard/CharacterCard";
 import { Loading } from "../../Components/Loading/Loading";
 import { Paginate } from "../../Components/Paginate/Paginate";
@@ -24,13 +24,12 @@ export const Home = () => {
 
   const getCharacters = async () => {
     setLoading(true);
-    const data = await getAllCharacters(formData);
+    const { data } = await getAll(formData);
 
     if (data) {
       setCharacters(data);
     }
     setLoading(false);
-    setFormData(initialValues);
   };
 
   const setData = (e) => {
@@ -59,15 +58,19 @@ export const Home = () => {
     <>
       <Container fluid className="p-5">
         <h1>Browse Characters</h1>
+        <Row>
+          <Filter
+            setData={setData}
+            getCharacters={getCharacters}
+            values={formData}
+          />
+        </Row>
         {loading ? (
           <Container>
             <Loading />
           </Container>
         ) : (
           <>
-            <Row>
-              <Filter setData={setData} getCharacters={getCharacters} />
-            </Row>
             <Row>
               {currentCharacters.map((character) => (
                 <Col className="mt-5" key={character.id}>

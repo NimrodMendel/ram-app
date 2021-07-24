@@ -4,7 +4,7 @@ import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import Button from "react-bootstrap/Button";
 
-export const Filter = ({ setData, getCharacters }) => {
+export const Filter = ({ setData, getCharacters, values }) => {
   const onChange = (e) => {
     setData(e);
   };
@@ -13,6 +13,8 @@ export const Filter = ({ setData, getCharacters }) => {
     e.preventDefault();
     getCharacters();
   };
+
+  const { name, gender, species, status } = values;
 
   return (
     <>
@@ -23,6 +25,7 @@ export const Filter = ({ setData, getCharacters }) => {
               placeholder="Character Name"
               name="name"
               onChange={onChange}
+              value={name}
             />
             <Form.Text className="text-muted">
               Upper or lower case letters
@@ -33,6 +36,7 @@ export const Filter = ({ setData, getCharacters }) => {
               placeholder="Gender"
               name="gender"
               onChange={onChange}
+              value={gender}
             />
             <Form.Text className="text-muted">Male / Female</Form.Text>
           </Col>
@@ -41,6 +45,7 @@ export const Filter = ({ setData, getCharacters }) => {
               placeholder="Species"
               name="species"
               onChange={onChange}
+              value={species}
             />
             <Form.Text className="text-muted">
               Human / Alien / Poopybutthole
@@ -51,6 +56,7 @@ export const Filter = ({ setData, getCharacters }) => {
               placeholder="Status"
               name="status"
               onChange={onChange}
+              value={status}
             />
             <Form.Text className="text-muted">
               Dead / Alive / Unknown.
