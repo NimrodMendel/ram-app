@@ -3,20 +3,32 @@ import moment from "moment";
 
 const URL = "http://localhost:8000/api";
 
-export const getAll = async (formData) => {
+const getData = async (url, formData) => {
   const { name, gender, status, species } = formData;
 
-  const data = await axios.get(`${URL}/feed`, {
+  const data = await axios.get(url, {
     headers: {
       "Content-type": "application/json",
     },
     params: {
-      name,
-      gender,
-      status,
-      species,
+      name: name ? name : "",
+      gender: gender ? gender : "",
+      status: status ? status : "",
+      species: species ? species : "",
     },
   });
+
+  return data;
+};
+
+export const getAll = async (formData) => {
+  const data = await getData(`${URL}/feed`, formData);
+
+  return data;
+};
+
+export const getFavorites = async (formData) => {
+  const data = await getData(`${URL}/favorites`, formData);
 
   return data;
 };

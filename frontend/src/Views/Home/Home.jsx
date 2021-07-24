@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { getAll } from "../../Lib/api";
+import { Paginate } from "../../Components/Paginate/Paginate";
 import { CharacterCard } from "../../Components/CharacterCard/CharacterCard";
 import { Loading } from "../../Components/Loading/Loading";
-import { Paginate } from "../../Components/Paginate/Paginate";
 import { Filter } from "../../Components/Filter/Filter";
+import { Message } from "../../Components/Message/Message";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+
 import Container from "react-bootstrap/Container";
 
 const initialValues = {
@@ -15,12 +16,12 @@ const initialValues = {
   status: "",
 };
 
-export const Home = () => {
+export const Home = ({ charactersPerPage, getAll, paginate, currentPage }) => {
   const [characters, setCharacters] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(initialValues);
-  const charactersPerPage = 30;
+  const [showAlert, setShowAlert] = useState(false);
+  const message = "Character added to favorites!";
 
   const getCharacters = async () => {
     setLoading(true);
@@ -50,8 +51,12 @@ export const Home = () => {
     indexOfLastCharacter
   );
 
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
+  const handleShowAlert = () => {
+    setShowAlert(true);
+  };
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
   };
 
   return (
@@ -71,10 +76,17 @@ export const Home = () => {
           </Container>
         ) : (
           <>
+            {showAlert && (
+              <Message message={message} handleCloseAlert={handleCloseAlert} />
+            )}
             <Row>
               {currentCharacters.map((character) => (
                 <Col className="mt-5" key={character.id}>
-                  <CharacterCard key={character.id} character={character} />
+                  <CharacterCard
+                    key={character.id}
+                    character={character}
+                    handleShowAlert={handleShowAlert}
+                  />
                 </Col>
               ))}
             </Row>
