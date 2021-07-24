@@ -20,6 +20,7 @@ class FeedView(APIView):
         gender = request.query_params['gender']
         status = request.query_params['status']
         species = request.query_params['species']
+        order = request.query_params['order']
 
         url = 'https://rickandmortyapi.com/api/character'
         i = 1
@@ -34,6 +35,11 @@ class FeedView(APIView):
 
             if res['info']['next'] is None:
                 break
+
+        if (order == 'name_asc'):
+            characters.sort(key=lambda x: x['name'])
+        else:
+            characters.sort(key=lambda x: x['name'], reverse=True)
 
         return Response(characters)
 
@@ -74,6 +80,7 @@ class FavoritesView(APIView):
         gender = request.GET.get('gender')
         status = request.GET.get('status')
         species = request.GET.get('species')
+        order = request.GET.get('order')
 
         if self.is_valid_param(name):
             queryset = queryset.filter(name__contains=name)
@@ -83,6 +90,11 @@ class FavoritesView(APIView):
             queryset = queryset.filter(status__contains=status)
         if self.is_valid_param(species):
             queryset = queryset.filter(species__contains=species)
+
+        if (order == 'name_asc'):
+            queryset = queryset.order_by('name')
+        else:
+            queryset = queryset.order_by('-name')
 
         return Response(queryset.values(), res_status.HTTP_200_OK)
 

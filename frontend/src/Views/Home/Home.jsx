@@ -14,6 +14,7 @@ const initialValues = {
   gender: "",
   species: "",
   status: "",
+  order: "",
 };
 
 export const Home = ({ charactersPerPage, getAll, paginate, currentPage }) => {

@@ -13,6 +13,7 @@ const initialValues = {
   gender: "",
   species: "",
   status: "",
+  order: "",
 };
 
 export const Favorites = ({
@@ -27,9 +28,9 @@ export const Favorites = ({
 
   const getCharacters = async () => {
     setLoading(true);
-    let { data } = await getFavorites(formData);
 
-    console.log(data);
+    const { data } = await getFavorites(formData);
+
     if (data) {
       setFavorites(data);
     }

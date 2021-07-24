@@ -4,7 +4,7 @@ import moment from "moment";
 const URL = "http://localhost:8000/api";
 
 const getData = async (url, formData) => {
-  const { name, gender, status, species } = formData;
+  const { name, gender, status, species, order } = formData;
 
   const data = await axios.get(url, {
     headers: {
@@ -15,6 +15,7 @@ const getData = async (url, formData) => {
       gender: gender ? gender : "",
       status: status ? status : "",
       species: species ? species : "",
+      order: order ? order : "",
     },
   });
 

@@ -63,6 +63,21 @@ export const Filter = ({ setData, getCharacters, values }) => {
             </Form.Text>
           </Col>
           <Col>
+            <Form.Select
+              aria-label="Default select example"
+              onChange={onChange}
+              name="order"
+            >
+              <option>Order by</option>
+              <option value="name_asc" name="order">
+                Name Asc
+              </option>
+              <option value="name_desc" name="order">
+                Name Desc
+              </option>
+            </Form.Select>
+          </Col>
+          <Col>
             <Button variant="primary" type="submit">
               Filter results
             </Button>
