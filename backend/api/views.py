@@ -36,9 +36,9 @@ class FeedView(APIView):
             if res['info']['next'] is None:
                 break
 
-        if (order == 'name_asc'):
+        if order == 'name_asc':
             characters.sort(key=lambda x: x['name'])
-        else:
+        elif order == 'name_desc':
             characters.sort(key=lambda x: x['name'], reverse=True)
 
         return Response(characters)
@@ -97,6 +97,9 @@ class FavoritesView(APIView):
             queryset = queryset.order_by('-name')
 
         return Response(queryset.values(), res_status.HTTP_200_OK)
+
+    def delete(self, request):
+        pass
 
     def is_valid_param(self, param):
         return param != None and param != ""
