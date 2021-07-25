@@ -1,24 +1,10 @@
 from django.db import models
 
-# Create your models here.
-
 
 class Favorite(models.Model):
 
-    STATUS = (
-        ('Dead', 'Dead'),
-        ('Alive', 'Alive'),
-        ('Unknown', 'Unknown')
-    )
-
-    GENDER = (
-        ('Female', 'Female'),
-        ('Male', 'Male'),
-        ('Genderless', 'Genderless'),
-        ('Unknown', 'Unknown')
-    )
-
-    id = models.IntegerField(primary_key=True)
+    character_id = models.IntegerField(
+        primary_key=True, null=False, blank=False)
     name = models.CharField(max_length=255)
     status = models.CharField(max_length=15)
     species = models.CharField(max_length=255)

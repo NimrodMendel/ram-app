@@ -8,7 +8,7 @@ export const Paginate = ({
   active,
 }) => {
   const pageNumbers = [];
-
+  console.log(charactersPerPage, charactersCount, active);
   for (let i = 1; i <= Math.ceil(charactersCount / charactersPerPage); i++) {
     pageNumbers.push(
       <Pagination.Item

@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest
 from rest_framework import generics, status as res_status
 from rest_framework.views import APIView
 from .serializers import FavoriteSerializer
@@ -7,10 +6,6 @@ from rest_framework.response import Response
 from .models import Favorite
 import requests
 import json
-from django.db.models import Q
-
-
-# Create your views here.
 
 
 class FeedView(APIView):
@@ -52,8 +47,8 @@ class FavoritesView(APIView):
 
         if serializer.is_valid():
 
-            id = request.data['body']['id']
-            queryset = Favorite.objects.filter(id=id)
+            character_id = request.data['body']['character_id']
+            queryset = Favorite.objects.filter(character_id=character_id)
 
             if not queryset.exists():
                 name = request.data['body']['name']
@@ -66,7 +61,7 @@ class FavoritesView(APIView):
                 image = request.data['body']['image']
                 created_at = request.data['body']['created_at']
                 favorite = Favorite(
-                    id, name, status, species, character_type, gender, origin, location, image, created_at)
+                    character_id, name, status, species, character_type, gender, origin, location, image, created_at)
                 favorite.save()
                 return Response(FavoriteSerializer(favorite).data, status=res_status.HTTP_201_CREATED)
 
@@ -99,12 +94,10 @@ class FavoritesView(APIView):
         return Response(queryset.values(), res_status.HTTP_200_OK)
 
     def delete(self, request):
-        name = request.GET.get('name')
-
-        print(name)
-
-        if self.is_valid_param(name):
-            queryset = Favorite.objects.filter(name=name).delete()
+        character_id = request.GET.get('character_id')
+        if self.is_valid_param(character_id):
+            queryset = Favorite.objects.filter(
+                character_id=character_id).delete()
 
         return Response('Character removed from favorites list', res_status.HTTP_204_NO_CONTENT)
 

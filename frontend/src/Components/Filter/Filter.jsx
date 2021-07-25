@@ -5,13 +5,9 @@ import Col from "react-bootstrap/esm/Col";
 import Button from "react-bootstrap/Button";
 
 export const Filter = ({ setData, getCharacters, values }) => {
-  const onChange = (e) => {
-    setData(e);
-  };
-
   const onSubmit = (e) => {
     e.preventDefault();
-    getCharacters();
+    getCharacters(values);
   };
 
   const { name, gender, species, status } = values;
@@ -24,7 +20,7 @@ export const Filter = ({ setData, getCharacters, values }) => {
             <Form.Control
               placeholder="Character Name"
               name="name"
-              onChange={onChange}
+              onChange={setData}
               value={name}
             />
             <Form.Text className="text-muted">
@@ -35,7 +31,7 @@ export const Filter = ({ setData, getCharacters, values }) => {
             <Form.Control
               placeholder="Gender"
               name="gender"
-              onChange={onChange}
+              onChange={setData}
               value={gender}
             />
             <Form.Text className="text-muted">Male / Female</Form.Text>
@@ -44,7 +40,7 @@ export const Filter = ({ setData, getCharacters, values }) => {
             <Form.Control
               placeholder="Species"
               name="species"
-              onChange={onChange}
+              onChange={setData}
               value={species}
             />
             <Form.Text className="text-muted">
@@ -55,7 +51,7 @@ export const Filter = ({ setData, getCharacters, values }) => {
             <Form.Control
               placeholder="Status"
               name="status"
-              onChange={onChange}
+              onChange={setData}
               value={status}
             />
             <Form.Text className="text-muted">
@@ -65,10 +61,10 @@ export const Filter = ({ setData, getCharacters, values }) => {
           <Col>
             <Form.Select
               aria-label="Default select example"
-              onChange={onChange}
+              onChange={setData}
               name="order"
             >
-              <option>Order by</option>
+              <option value="">Order by</option>
               <option value="name_asc" name="order">
                 Name Asc
               </option>

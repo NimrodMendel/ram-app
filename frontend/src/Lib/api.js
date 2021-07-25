@@ -40,7 +40,7 @@ export const likeCharacter = async (character) => {
       "Content-type": "application/json",
     },
     body: {
-      id: character.id,
+      character_id: character.id,
       name: character.name,
       location: character.location.name,
       image: character.image,
@@ -56,13 +56,13 @@ export const likeCharacter = async (character) => {
   return data;
 };
 
-export const unlikeCharacter = async (characterName) => {
+export const unlikeCharacter = async (id) => {
   const data = await axios.delete(`${URL}/favorites`, {
     headers: {
       "Content-type": "application/json",
     },
     params: {
-      name: characterName,
+      character_id: id,
     },
   });
 

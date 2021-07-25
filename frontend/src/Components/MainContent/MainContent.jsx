@@ -6,23 +6,32 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 export const MainContent = ({
-  handleShowAlert,
   charactersPerPage,
-  currentCharacters,
   currentPage,
   paginate,
-  charactersCount,
-  
+  characters,
+  handleShowAlert,
+  favorites,
+  unlike,
 }) => {
+  const indexOfLastCharacter = currentPage * charactersPerPage;
+  const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage;
+  const currentCharacters = characters.slice(
+    indexOfFirstCharacter,
+    indexOfLastCharacter
+  );
+
   return (
     <>
       <Row>
         {currentCharacters.map((character) => (
-          <Col className="mt-5" key={character.id}>
+          <Col className="mt-5" key={character.character_id}>
             <CharacterCard
-              key={character.id}
+              key={character.character_id}
               character={character}
               handleShowAlert={handleShowAlert}
+              favorites={favorites}
+              unlike={unlike}
             />
           </Col>
         ))}
@@ -31,7 +40,7 @@ export const MainContent = ({
         <Col xs>
           <Paginate
             charactersPerPage={charactersPerPage}
-            charactersCount={currentCharacters.length}
+            charactersCount={characters.length}
             paginate={paginate}
             active={currentPage}
           />
