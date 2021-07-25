@@ -55,3 +55,16 @@ export const likeCharacter = async (character) => {
 
   return data;
 };
+
+export const unlikeCharacter = async (characterName) => {
+  const data = await axios.delete(`${URL}/favorites`, {
+    headers: {
+      "Content-type": "application/json",
+    },
+    params: {
+      name: characterName,
+    },
+  });
+
+  return data;
+};

@@ -79,7 +79,7 @@ export const Filter = ({ setData, getCharacters, values }) => {
           </Col>
           <Col>
             <Button variant="primary" type="submit">
-              Filter results
+              Search
             </Button>
           </Col>
         </Row>

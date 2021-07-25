@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getFavorites } from "../../Lib/api";
+import { unlikeCharacter } from "../../Lib/api";
 import { CharacterCard } from "../../Components/CharacterCard/CharacterCard";
 import { Loading } from "../../Components/Loading/Loading";
 import { Paginate } from "../../Components/Paginate/Paginate";
@@ -37,6 +37,17 @@ export const Favorites = ({
     setLoading(false);
   };
 
+  const unlike = async (name) => {
+    const res = await unlikeCharacter(name);
+
+    if (res) {
+      let temp = favorites.filter((character) => character.name !== name);
+      setFavorites(temp);
+    }
+
+    return;
+  };
+
   const setData = (e) => {
     setFormData({
       ...formData,
@@ -47,6 +58,8 @@ export const Favorites = ({
   useEffect(() => {
     getCharacters();
   }, []);
+
+  useEffect(() => {}, [favorites]);
 
   const indexOfLastCharacter = currentPage * charactersPerPage;
   const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage;
@@ -75,7 +88,11 @@ export const Favorites = ({
             <Row>
               {currentCharacters.map((character) => (
                 <Col className="mt-5" key={character.id}>
-                  <CharacterCard key={character.id} character={character} />
+                  <CharacterCard
+                    key={character.id}
+                    character={character}
+                    unlike={unlike}
+                  />
                 </Col>
               ))}
             </Row>

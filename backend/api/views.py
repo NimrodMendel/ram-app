@@ -99,7 +99,14 @@ class FavoritesView(APIView):
         return Response(queryset.values(), res_status.HTTP_200_OK)
 
     def delete(self, request):
-        pass
+        name = request.GET.get('name')
+
+        print(name)
+
+        if self.is_valid_param(name):
+            queryset = Favorite.objects.filter(name=name).delete()
+
+        return Response('Character removed from favorites list', res_status.HTTP_204_NO_CONTENT)
 
     def is_valid_param(self, param):
         return param != None and param != ""

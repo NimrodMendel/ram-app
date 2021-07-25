@@ -8,10 +8,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-export const CharacterCard = ({ character, handleShowAlert }) => {
+export const CharacterCard = ({ character, handleShowAlert, unlike }) => {
   const [show, setShow] = useState(false);
 
-  const { name, gender, species, location, status, image } = character;
+  const { name, image } = character;
 
   const like = async () => {
     const res = await likeCharacter(character);
@@ -49,6 +49,11 @@ export const CharacterCard = ({ character, handleShowAlert }) => {
             <Col>
               <Button variant="primary" onClick={like}>
                 Like
+              </Button>
+            </Col>
+            <Col>
+              <Button onClick={() => unlike(name)} variant="danger">
+                Unlike
               </Button>
             </Col>
             <Col>
