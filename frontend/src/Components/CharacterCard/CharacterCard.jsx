@@ -7,6 +7,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import useSmartState from "../../Hooks/useSmartState";
 
 export const CharacterCard = ({
   character,
@@ -14,16 +15,19 @@ export const CharacterCard = ({
   unlike,
   favorites,
 }) => {
+  const [favoriteCharacters, setFavoriteCharacters] = useSmartState(favorites);
   const [show, setShow] = useState(false);
   const { name, image } = character;
 
   const like = async () => {
     await likeCharacter(character);
+    setFavoriteCharacters(favorites);
     handleShowAlert();
   };
 
   const removeFromFavorites = async () => {
     await unlike(character.character_id);
+    setFavoriteCharacters(favorites);
   };
 
   const handleShowModal = () => {
@@ -33,8 +37,6 @@ export const CharacterCard = ({
   const handleClose = () => {
     setShow(false);
   };
-
-  useEffect(() => {}, [favorites]);
 
   return (
     <>
@@ -56,12 +58,13 @@ export const CharacterCard = ({
 
         <Card.Body>
           <Row>
-            {favorites.find((ch) => ch.character_id === character.id) ||
-            favorites.find(
+            {favoriteCharacters.find(
+              (ch) => ch.character_id === character.id
+            ) ||
+            favoriteCharacters.find(
               (ch) => ch.character_id === character.character_id
             ) ? (
               <Col>
-                {console.log("true")}
                 <Button onClick={removeFromFavorites} variant="danger">
                   Unlike
                 </Button>

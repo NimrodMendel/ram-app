@@ -48,7 +48,9 @@ function App() {
 
   const like = async (character) => {
     await likeCharacter(character);
-    setFavorites([...favorites, character]);
+    let temp = favorites;
+    temp.push(character);
+    setFavorites(temp);
   };
 
   const unlike = async (id) => {

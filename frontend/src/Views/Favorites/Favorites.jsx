@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import { MainContent } from "../../Components/MainContent/MainContent";
 
+
 export const Favorites = ({
   charactersPerPage,
   getFavoritesFromDB,
@@ -15,6 +16,7 @@ export const Favorites = ({
   formData,
   unlike,
 }) => {
+  
   return (
     <>
       <Container fluid className="p-5">

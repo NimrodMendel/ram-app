@@ -2,6 +2,7 @@ import React from "react";
 import { Paginate } from "../../Components/Paginate/Paginate";
 import { CharacterCard } from "../CharacterCard/CharacterCard";
 
+
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
@@ -14,6 +15,7 @@ export const MainContent = ({
   favorites,
   unlike,
 }) => {
+  
   const indexOfLastCharacter = currentPage * charactersPerPage;
   const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage;
   const currentCharacters = characters.slice(
